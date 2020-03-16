@@ -5,12 +5,9 @@ import com.yikai.springcloud.entities.Payment;
 import com.yikai.springcloud.service.PaymentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.cloud.client.ServiceInstance;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @Description
@@ -24,9 +21,9 @@ public class PaymentController {
 
     @Resource
     private PaymentService paymentService;
+
     @Value("${server.port}")
     private String port;
-
 
     @PostMapping(value = "/payment/create")
     public CommonResult create(@RequestBody Payment payment){
@@ -34,7 +31,7 @@ public class PaymentController {
         log.info("****插入结果: " + result);
 
         if (result > 0){
-            return new CommonResult(200,"插入数据库成功,poer: " + port,result);
+            return new CommonResult(200,"插入数据库成功,port: " + port,result);
         }else {
             return new CommonResult(444,"插入数据库失败",null);
         }
@@ -53,24 +50,5 @@ public class PaymentController {
             return new CommonResult(444,"没有对应记录,查询ID为: " + id,null);
         }
     }
-
-
-    @Resource
-    private DiscoveryClient discoveryClient;
-
-    @GetMapping("/payment/discovery")
-    public Object discovery(){
-        List<String> services = discoveryClient.getServices();
-        for (String s : services){
-            log.info("服务名: " + s);
-        }
-
-        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
-        for (ServiceInstance instance : instances){
-            log.info("实例信息: " + instance.getHost() +"  " + instance.getPort() + "  " + instance.getInstanceId() +"  " + instance.getServiceId());
-        }
-        return  this.discoveryClient;
-    }
-
 
 }

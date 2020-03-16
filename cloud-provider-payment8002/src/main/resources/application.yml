@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8002
 spring:
   application:
     name: cloud-payment-service
@@ -17,9 +17,7 @@ eureka:
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/
   instance:
-    #这里是在eureka界面Status栏的显示
-    instance-id: payment8001
-    #访问路径可以显示ip
+    instance-id: payment8002
     prefer-ip-address: true
 
 mybatis:
