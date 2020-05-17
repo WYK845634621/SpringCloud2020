@@ -3,6 +3,8 @@ package com.yikai.springcloud.controller;
 import com.yikai.springcloud.entities.CommonResult;
 import com.yikai.springcloud.entities.Payment;
 import com.yikai.springcloud.service.PaymentService;
+import com.yikai.springcloud.vo.ParamVo;
+import com.yikai.springcloud.vo.ResultVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
@@ -81,6 +83,19 @@ public class PaymentController {
             e.printStackTrace();
         }
         return port;
+    }
+
+
+    @PostMapping("/payment/post")
+    public ResultVo<String> post(@RequestBody ParamVo<String,String> paramVo){
+        ResultVo<String> resultVo = new ResultVo<>();
+        try {
+            resultVo.setResult(paramVo.getCondition());
+            TimeUnit.SECONDS.sleep(3);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        return resultVo;
     }
 
 }

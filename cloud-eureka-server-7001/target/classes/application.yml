@@ -6,5 +6,5 @@ eureka:
   client:
     register-with-eureka: false   #false表示不向注册中心注册自己
     service-url:
-      defaultZone: http://10.243.140.62:7003/eureka/
+      defaultZone: http://eureka7001.com:7001/eureka/
     fetch-registry: false   #false表示自己就是注册中心,职责就是维护实例,并不去检索服务
